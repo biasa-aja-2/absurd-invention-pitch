@@ -43,6 +43,10 @@ def main() -> None:
         raise ValueError(
             "entry must be exactly one sentence, got %d terminators" % terminators
         )
+    if text != text.strip():
+        raise ValueError("entry must not have leading or trailing whitespace")
+    if text[-1] not in (".", "!", "?"):
+        raise ValueError("entry must end with its sentence terminator")
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
